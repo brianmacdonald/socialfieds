@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block breadcrumbs %}
+	<a href="{% url view_board board.slug %}">{{board.title}}</a>/
+	{{ category.title }}
+{% endblock %}
+
+{% block content %}
+
+<h2>{{ category.title }}</h2>
+
+{% for post in posts %}
+<div>
+	<a href="{% url public_post post.board.slug post.category.slug post.slug %}">{{ post.title }}</a>
+	By {{ post.user.username }}
+</div>
+    <hr/>
+{% endfor %}   
+
+<a href="{% url new_post board.slug category.slug %}">New</a>
+{% endblock %}
