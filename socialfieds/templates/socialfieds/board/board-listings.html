@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block breadcrumbs %}
+	<a href="{% url board_categories board.slug %}">{{ board }}</a> / All
+{% endblock %}
+
+{% block content %}
+
+<h2>All {{ board }}</h2>
+
+{% regroup listings by created|date:"M D d" as listing_list %}
+<ul class="list">
+{% for p in listing_list %}
+    <li><span>{{ p.grouper }}</span>
+    <ul>
+        {% for item in p.list %}
+        <li>
+        	<a href="{% url public_listing item.board.slug item.category.slug item.slug %}">{{ item.title }}</a>
+        	  <span> Posted by {{ item.user }} </span>
+    	</li>
+        {% endfor %}
+    </ul>
+    </li>    
+{% endfor %}
+{% if not listing_list %}
+	<li>No listings yet</li>
+{% endif %}
+</ul>  
+
+{% endblock %}

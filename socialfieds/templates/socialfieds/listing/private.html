@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block breadcrumbs %}
+	<a href="{% url board_categories board.slug %}">{{ board }}</a> /
+	<a href="{% url catagory_listings board.slug category.slug %}">{{ category }}</a> /
+	{{ listing }}
+{% endblock %}
+
+{% block content %}
+
+	<form action="{{ request.path_info }}" method="post">
+	<fieldset>
+		{{ form.as_p }}
+	</fieldset>
+  <input type="submit" value="Save" />
+  
+    {% if listing.id %}
+  		
+  		<a href="{% url inactivate_listing board.slug category.slug listing.slug %}">Inactivate Listing</a>
+  	
+  	{% endif %}
+  
+	</form>
+{% endblock %}

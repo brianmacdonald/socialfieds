@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block breadcrumbs %}
+	<a href="{% url board_categories board.slug %}">{{ board }}</a> /
+	<a href="{% url catagory_listings board.slug category.slug %}">{{ category }}</a> /
+	{{ listing }}
+{% endblock %}
+
+{% block content %}
+
+	<div>
+	   <h2>{{ listing }}</h2>
+	   <div>Created: {{ listing.created|date:"D M d" }} by {{ listing.user }}</div>
+	   <p>
+	      {{ listing.description }}
+	   </p>
+   </div>
+   
+   {% ifequal listing.user user %}
+   		<a href="{% url edit_listing listing.board.slug listing.category.slug listing.slug %}">Edit</a>
+   {% endifequal %}
+   
+   {% if user.username %}
+   		<a href="{% url flag_listing board.slug category.slug listing.slug %}">Flag Post</a>
+   {% endif %}
+
+{% endblock %}

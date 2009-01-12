@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{ board }}</h2>
+ 
+{% regroup categories by parent_category as category_list %}
+<ul>
+{% for c in category_list %}
+    <li>{{ c.grouper }}
+    <ul>
+        {% for item in c.list %}
+        <li><a href="{% url catagory_listings board.slug item.slug %}">{{ item }}</a></li>
+        {% endfor %}
+    </ul>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

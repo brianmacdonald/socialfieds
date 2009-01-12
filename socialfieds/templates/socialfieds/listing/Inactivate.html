@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block breadcrumbs %}
+	<a href="{% url board_categories board.slug %}">{{ board }}</a> /
+	<a href="{% url catagory_listings board.slug category.slug %}">{{ category }}</a> /
+	{{ listing }}
+{% endblock %}
+
+{% block content %}
+
+	{% if inactivated %}
+	
+		<p>
+			<strong>{{ listing }}</strong> has been inactivated.
+		</p>
+	
+	{% else %}
+
+	<h2>{{ listing }}</h2>
+
+	<p>Are you sure you would like to inactivate this listing?</p>
+
+	<form action="{{ request.path_info }}" method="post">
+
+		{{ form.as_p }}
+
+  <input type="submit" value="Yes" />   
+  <input type="button" value="No" onclick="history.go(-1)"  />
+	</form>
+	
+	{% endif %}
+	
+{% endblock %}
