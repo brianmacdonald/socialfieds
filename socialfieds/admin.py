@@ -1,5 +1,6 @@
 from django.contrib import admin
 from models import *
+from forms import CategoryAdminForm
 
 class BoardAdmin(admin.ModelAdmin):
         list_display=('title',)
@@ -16,6 +17,7 @@ class CategoryAdmin(admin.ModelAdmin):
         list_per_page = 25
         search_fields = ['title',]
         prepopulated_fields = {'slug':('title',) }
+        form = CategoryAdminForm       
 
 admin.site.register(Category, CategoryAdmin)
 
