@@ -6,6 +6,7 @@ Models definitions for classifieds.
 from django.db import models, IntegrityError
 from django.contrib.auth.models import User    
 from django.template.defaultfilters import slugify 
+from django.utils.translation import ugettext_lazy as _
 import re
 import datetime
        
@@ -17,7 +18,7 @@ class Board(models.Model):
     """
 
     title     = models.CharField(blank=True, max_length=255)
-    slug      = models.SlugField(unique=True,max_length=100, blank=True,  null=True) 
+    slug      = models.SlugField(unique=True,max_length=100, blank=True, null=True) 
     order     = models.PositiveIntegerField(blank=True,  null=True)   
     is_active = models.BooleanField(default=False)
         
@@ -30,10 +31,13 @@ class Category(models.Model):
     """
 
     title           = models.CharField(blank=True, max_length=255)
-    slug            = models.SlugField(unique=True,max_length=100, blank=True,  null=True)    
+    slug            = models.SlugField(unique=True,max_length=100, blank=True, null=True)    
     parent_category = models.ForeignKey('self', null=True, blank=True)
     order           = models.PositiveIntegerField(blank=True,  null=True)
     is_active       = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural = _('categories')
 
     def __unicode__(self):
         return self.title
@@ -105,7 +109,7 @@ class Listing(models.Model):
     user        = models.ForeignKey(User)
     category    = models.ForeignKey(Category)
     board       = models.ForeignKey(Board)
-    created     = models.DateTimeField(auto_now_add = True)
+    created     = models.DateTimeField(default=datetime.datetime.now, )
     edited      = models.DateTimeField(auto_now = True)
     is_active   = models.BooleanField(default=True)
     
@@ -149,7 +153,7 @@ class ListingFlag(models.Model):
     flag      = models.CharField(max_length=30, db_index=True)
     flag_date = models.DateTimeField(auto_now_add = True)
 
-    # Constants for flag types
+    #Constants for flag types
     #TODO: Create more relevant flags 
     SUGGEST_REMOVAL = "removal suggestion"
     MODERATOR_DELETION = "moderator deletion"
