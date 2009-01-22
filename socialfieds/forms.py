@@ -20,7 +20,7 @@ class ListingInactivateForm(forms.Form):
     Inactivates listing
     """
     
-    delete = forms.BooleanField(initial = True, widget=forms.HiddenInput())
+    inactivate = forms.BooleanField(initial = True, widget=forms.HiddenInput())
     
 class ListingFlagForm(forms.Form):
     """
