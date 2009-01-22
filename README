@@ -1,0 +1,15 @@
+Socialfieds is a simple reusable Classifieds app for Django. The app is loosely modeled after Craigslist but with more of an emphasis on social networking.
+
+Features:
+Can be integrated with django-comments, django-messaging and django-profiles
+Simple two field listing form that is easily expanded
+Board, Category and Listing titles in url
+Simple listing moderation
+
+Todo:
+Clean-up parent/child category model, admin and forms
+Clean-up listings manager
+Create some generic views
+
+Notes:
+With included templates, parent categories are not accessible.
