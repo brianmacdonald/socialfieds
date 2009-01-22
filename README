@@ -7,6 +7,7 @@ Board, Category and Listing titles in url
 Simple listing moderation
 
 Todo:
+Internationalization 
 Clean-up parent/child category model, admin and forms
 Clean-up listings manager
 Create some generic views
