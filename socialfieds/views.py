@@ -40,7 +40,6 @@ def public_listing(request,board_slug,category_slug,listing_slug):
     data = {'listing':listing, 'category':category, 'board':board, }
     return render_to_response(template, data, context_instance=RequestContext(request))	
     
-@login_required 
 def private_listing(request,board_slug,category_slug,listing_slug=None):
     """Create or edit listing"""
     category = get_object_or_404(Category,slug=category_slug, is_active=True)   
@@ -61,9 +60,9 @@ def private_listing(request,board_slug,category_slug,listing_slug=None):
         form = ListingForm(instance=listing)
     template = 'socialfieds/listing/private.html'
     data = {'listing':listing, 'form':form, 'category':category, 'board':board, }  
-    return render_to_response(template, data, context_instance=RequestContext(request))	
-    
-@login_required 
+    return render_to_response(template, data, context_instance=RequestContext(request))
+private_listing = login_required(private_listing)	
+     
 def inactivate_listing(request, board_slug, category_slug, listing_slug):
     """inactivates listing"""
     category = get_object_or_404(Category, slug=category_slug, is_active=True)   
@@ -85,13 +84,14 @@ def inactivate_listing(request, board_slug, category_slug, listing_slug):
     template = 'socialfieds/listing/inactivate.html'
     data = {'listing':listing, 'form':form, 'category':category, 'board':board, 'inactivated':inactivated, }  
     return render_to_response(template, data, context_instance=RequestContext(request))	
+inactivate_listing = login_required(inactivate_listing)
     
 def catagory_listings(request,board_slug,category_slug):
     """Displays all listings in a category"""
     category = get_object_or_404(Category,slug=category_slug, is_active=True)   
     board = get_object_or_404(Board,slug=board_slug, is_active=True) 
     listings = Listing.objects.get_latest(board,category)
-    template = 'socialfieds/category/category_listings.html'
+    template = 'socialfieds/category/category-listings.html'
     data = {'board':board, 'category':category,'listings':listings, }
     return render_to_response(template, data, context_instance=RequestContext(request))
     
