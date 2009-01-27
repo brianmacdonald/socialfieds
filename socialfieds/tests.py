@@ -7,6 +7,7 @@ __test__ = {"SOCIALFIEDS_TESTS": r"""
 >>> import datetime
 >>> from django.contrib.auth.models import User
 >>> from models import Board, Category, Listing, ListingFlag
+>>> now = datetime.datetime.now()
 
 # create a user to associate to the listing
 >>> user = User.objects.create_user("brianm", "brian.m17@gmail.com", password='password')
@@ -24,14 +25,14 @@ __test__ = {"SOCIALFIEDS_TESTS": r"""
 ... )
 >>> Listing.objects.create(
 ...     title='Web Developer',description='We need a django developer!',
-...      user=user, category=category, board=board, created=datetime.datetime(2009,1,19)
+...      user=user, category=category, board=board, created=now-datetime.timedelta(days=3)
 ... )
 <Listing: Web Developer>
 
 >>> Listing.objects.create(
 ...     title='Ruby on Rails Developer',
 ...     description='We need a Ruby on Rails developer!', user=user,
-...     category=category, board=board, created=datetime.datetime(2009,1,20)
+...     category=category, board=board, created=now-datetime.timedelta(days=2)
 ... )
 <Listing: Ruby on Rails Developer>
 
@@ -44,7 +45,7 @@ __test__ = {"SOCIALFIEDS_TESTS": r"""
 ... )
 >>> Listing.objects.create(
 ...     title='Web Designer', description='Must know XHTML/CSS!',
-...     user=user, category=category, board=board, created=datetime.datetime(2009,1,21)
+...     user=user, category=category, board=board, created=now-datetime.timedelta(days=1)
 ... )
 <Listing: Web Designer>
 
